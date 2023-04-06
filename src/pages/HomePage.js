@@ -8,9 +8,6 @@ import useResponsive from '../hooks/useResponsive';
 // components
 import Logo from '../components/logo';
 import Iconify from '../components/iconify';
-// sections
-
-// ----------------------------------------------------------------------
 
 const StyledRoot = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('md')]: {
@@ -46,7 +43,7 @@ export default function HomePage() {
   return (
     <>
       <Helmet>
-        <title> Login | Minimal UI </title>
+        <title> Home | Resume Classification </title>
       </Helmet>
 
       <StyledRoot>

@@ -150,7 +150,7 @@ export default function ResultPage() {
   return (
     <>
       <Helmet>
-        <title> User | Minimal UI </title>
+        <title> Result | Resume Classification </title>
       </Helmet>
 
       <Container>
