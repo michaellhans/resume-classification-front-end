@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from "react";
 import { Helmet } from 'react-helmet-async';
 import { Link as RouterLink } from 'react-router-dom';
 // @mui
@@ -8,6 +9,8 @@ import useResponsive from '../hooks/useResponsive';
 // components
 import Logo from '../components/logo';
 import Iconify from '../components/iconify';
+
+const url = "https://resume-classification.herokuapp.com";
 
 const StyledRoot = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('md')]: {
@@ -35,13 +38,68 @@ const StyledContent = styled('div')(({ theme }) => ({
   padding: theme.spacing(12, 0),
 }));
 
-// ----------------------------------------------------------------------
-
 export default function HomePage() {
+  const [users, setUsers] = useState([]);
+  const [selectedFiles, setSelectedFiles] = useState([]);
   const mdUp = useResponsive('up', 'md');
+
+  const handleUploadFile = async () => {
+    try {
+      const formData = new FormData();
+      selectedFiles.forEach((file, i) => {
+        formData.append(`file`, file, file.name);
+      });
+  
+      const response = await fetch(url, "/predict", {
+        method: "POST",
+        headers: new Headers({
+          "ngrok-skip-browser-warning": "69420",
+        }),
+        body: formData
+      });
+  
+      if (!response.ok) {
+        throw new Error("Failed to upload file");
+      }
+      else {
+        // Process response from server if needed
+        const { data } = await response.json();
+        setUsers(data);
+        console.log(`File uploaded successfully!`);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  const handleFileChange = (event) => {
+    const newFiles = []
+    for(let i = 0; i < event.target.files.length; i){
+       newFiles.push(event.target.files[i])
+    }
+    setSelectedFiles(newFiles);
+  }
 
   return (
     <>
+        <div>
+      <div>
+        <input type="file" multiple accept='application/pdf' onChange={handleFileChange} />
+        <button onClick={handleUploadFile}>Upload</button>
+      </div>
+      {users.length > 0 ? (
+        <ul>
+          {users.map(user => (
+            <li key={user.id}>
+              ID: {user.id}, Role: {user.role}
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <div>Loading...</div>
+      )}
+    </div>
+
       <Helmet>
         <title> Home | Resume Classification </title>
       </Helmet>
@@ -73,7 +131,7 @@ export default function HomePage() {
               Click "Upload" for Get Job Prediction {''}
               <Link variant="subtitle2">   Get started</Link>
             </Typography>
-            <Button variant="contained" size="large" component="label">
+            <Button onClick={handleUploadFile} variant="contained" size="large" component="label">
             Upload
             <input hidden accept="file/*" multiple type="file"/>
           </Button>
