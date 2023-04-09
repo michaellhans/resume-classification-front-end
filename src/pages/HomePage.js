@@ -50,7 +50,8 @@ export default function HomePage() {
         formData.append(`file`, file, file.name);
       });
   
-      const response = await fetch(url, "/predict", {
+      /* eslint-disable */
+      const response = await fetch(url + "/predict", {
         method: "POST",
         headers: new Headers({
           "ngrok-skip-browser-warning": "69420",
@@ -74,7 +75,7 @@ export default function HomePage() {
 
   const handleFileChange = (event) => {
     const newFiles = []
-    for(let i = 0; i < event.target.files.length; i){
+    for(let i = 0; i < event.target.files.length; i++){
        newFiles.push(event.target.files[i])
     }
     setSelectedFiles(newFiles);
@@ -82,7 +83,7 @@ export default function HomePage() {
 
   return (
     <>
-        <div>
+      {/* <div>
       <div>
         <input type="file" multiple accept='application/pdf' onChange={handleFileChange} />
         <button onClick={handleUploadFile}>Upload</button>
@@ -98,7 +99,7 @@ export default function HomePage() {
       ) : (
         <div>Loading...</div>
       )}
-    </div>
+    </div> */}
 
       <Helmet>
         <title> Home | Resume Classification </title>
@@ -128,13 +129,14 @@ export default function HomePage() {
             Get Job Position Predictions with Magic Tool
             </Typography>
             <Typography variant="body2" sx={{ mb: 5 }}>
-              Click "Upload" for Get Job Prediction {''}
+              Click "Telusuri" for Get Job Prediction {''}
               <Link variant="subtitle2">   Get started</Link>
             </Typography>
-            <Button onClick={handleUploadFile} variant="contained" size="large" component="label">
-            Upload
-            <input hidden accept="file/*" multiple type="file"/>
-          </Button>
+            {/* <Button onClick={handleUploadFile} variant="contained" size="large" component="label"> */}
+            {/* Upload */}
+            {/* <input hidden accept="file/*" multiple type="file"/> */}
+            <input type="file" multiple accept='application/pdf' onChange={handleFileChange} />
+          {/* </Button> */}
           <Divider sx={{ my: 3 }}>
               <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                 OR
@@ -160,9 +162,23 @@ export default function HomePage() {
                 SUBMIT
               </Typography>
             </Divider>
-            <Button to="/result" variant="contained" color="warning" size="large" component={RouterLink}>
+            <div>
+            <Button onClick={handleUploadFile} variant="contained" size="sm" component="label" color="primary">
             Submit
           </Button>
+             {users.length > 0 ? (
+                <ul>
+                  {users.map(user => (
+                    <li key={user.id}>
+                      ID: {user.id}, Role: {user.role}
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <div> </div>
+              )}          
+            </div>
+
           </StyledContent>
         </Container>
       </StyledRoot>

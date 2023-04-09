@@ -36,10 +36,7 @@ import USERLIST from '../_mock/user';
 
 const TABLE_HEAD = [
   { id: 'name', label: 'Name', alignRight: false },
-  // { id: 'company', label: 'Company', alignRight: false },
   { id: 'role', label: 'Job Position Prediction', alignRight: false },
-  // { id: 'isVerified', label: 'Verified', alignRight: false },
-  // { id: 'status', label: 'Status', alignRight: false },
   { id: '' },
 ];
 
@@ -75,6 +72,7 @@ function applySortFilter(array, comparator, query) {
 }
 
 export default function ResultPage() {
+  const [users, setUsers] = useState([]);
   const [open, setOpen] = useState(null);
 
   const [page, setPage] = useState(0);
@@ -149,6 +147,19 @@ export default function ResultPage() {
 
   return (
     <>
+    <div>
+    {users.length > 0 ? (
+                <ul>
+                  {users.map(user => (
+                    <li key={user.id}>
+                      ID: {user.id}, Role: {user.role}
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <div> </div>
+              )}  
+    </div>
       <Helmet>
         <title> Result | Resume Classification </title>
       </Helmet>
@@ -197,17 +208,7 @@ export default function ResultPage() {
                             </Typography>
                           </Stack>
                         </TableCell>
-
-                        {/* <TableCell align="left">{company}</TableCell> */}
-
                         <TableCell align="left">{role}</TableCell>
-
-                        {/* <TableCell align="left">{isVerified ? 'Yes' : 'No'}</TableCell> */}
-
-                        {/* <TableCell align="left">
-                          <Label color={(status === 'banned' && 'error') || 'success'}>{sentenceCase(status)}</Label>
-                        </TableCell> */}
-
                         <TableCell align="right">
                           <IconButton size="large" color="inherit" onClick={handleOpenMenu}>
                             <Iconify icon={'eva:more-vertical-fill'} />
