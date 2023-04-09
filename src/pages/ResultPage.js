@@ -2,7 +2,7 @@ import { Helmet } from 'react-helmet-async';
 import { Link as RouterLink } from 'react-router-dom';
 import { filter } from 'lodash';
 // import { sentenceCase } from 'change-case';
-import { useState } from 'react';
+import React, { useEffect, useState } from "react";
 // @mui
 import {
   Card,
@@ -144,6 +144,11 @@ export default function ResultPage() {
   const filteredUsers = applySortFilter(USERLIST, getComparator(order, orderBy), filterName);
 
   const isNotFound = !filteredUsers.length && !!filterName;
+
+  useEffect(()=> {
+    console.log(USERLIST)
+  },[]
+  )
 
   return (
     <>
