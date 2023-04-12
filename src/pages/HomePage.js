@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { Link as RouterLink } from 'react-router-dom';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Link, Container, Typography, Divider, Stack, Button } from '@mui/material';
+import { Link, Container, Typography, Divider, Stack, Button, Table, TableContainer, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
 // hooks
 import useResponsive from '../hooks/useResponsive';
 // components
@@ -29,7 +29,7 @@ const StyledSection = styled('div')(({ theme }) => ({
 }));
 
 const StyledContent = styled('div')(({ theme }) => ({
-  maxWidth: 480,
+  maxWidth: 800,
   margin: 'auto',
   minHeight: '100vh',
   display: 'flex',
@@ -123,21 +123,21 @@ export default function HomePage() {
           </StyledSection>
         )}
 
-        <Container maxWidth="sm">
+        <Container maxWidth="md">
           <StyledContent>
-            <Typography variant="h4" gutterBottom>
-            Get Job Position Predictions with Magic Tool
+            <Typography variant="h3" gutterBottom>
+            Get Prediction Job Position with Magic Tool
             </Typography>
-            <Typography variant="body2" sx={{ mb: 5 }}>
-              Click "Telusuri" for Get Job Prediction {''}
-              <Link variant="subtitle2">   Get started</Link>
+            <Typography variant="body2" sx={{ mb: 6 }}>
+              Click "Telusuri" to choose a files and click "Submit" for Get Prediction Job Position {''}
+              {/* <Link variant="subtitle2">   Get started</Link> */}
             </Typography>
             {/* <Button onClick={handleUploadFile} variant="contained" size="large" component="label"> */}
             {/* Upload */}
             {/* <input hidden accept="file/*" multiple type="file"/> */}
             <input type="file" multiple accept='application/pdf' onChange={handleFileChange} />
           {/* </Button> */}
-          <Divider sx={{ my: 3 }}>
+          {/* <Divider sx={{ my: 3 }}>
               <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                 OR
               </Typography>
@@ -156,7 +156,7 @@ export default function HomePage() {
               <Button Button to="https://onedrive.live.com" fullWidth size="large" color="inherit" variant="outlined" component={RouterLink}>
                 <Iconify icon="logos:microsoft-onedrive" color="#1C9CEA" width={22} height={22} />
               </Button>
-            </Stack>
+            </Stack> */}
             <Divider sx={{ my: 3 }}>
               <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                 SUBMIT
@@ -166,7 +166,34 @@ export default function HomePage() {
             <Button onClick={handleUploadFile} variant="contained" size="sm" component="label" color="primary">
             Submit
           </Button>
-             {users.length > 0 ? (
+          {users.length > 0 ? (
+                <TableContainer sx={{ marginTop: 4 }}>
+                     <Typography align="center" variant="h6" sx={{ mb: 5 }}>
+                     Result Prediction Job Position {''}
+                    </Typography>
+                  <Table>
+                    <TableHead>
+                      <TableRow>
+                        <TableCell>Name</TableCell>
+                        <TableCell>Role</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {users.map(user => (
+                        <TableRow key={user.id}>
+                          <TableCell>{user.id}</TableCell>
+                          <TableCell>{user.role}</TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              ) : (
+                <Typography variant="body1" align="center" color="textSecondary" mt={4}>
+                  No data available
+                </Typography>
+              )}
+             {/* {users.length > 0 ? (
                 <ul>
                   {users.map(user => (
                     <li key={user.id}>
@@ -176,9 +203,8 @@ export default function HomePage() {
                 </ul>
               ) : (
                 <div> </div>
-              )}          
+              )}           */}
             </div>
-
           </StyledContent>
         </Container>
       </StyledRoot>

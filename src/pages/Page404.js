@@ -28,22 +28,23 @@ export default function Page404() {
       <Container>
         <StyledContent sx={{ textAlign: 'center', alignItems: 'center' }}>
           <Typography variant="h3" paragraph>
-            Sorry, page not found!
+          Hi, Welcome Back
+          </Typography>
+          <Box
+            component="img"
+            src="/assets/illustrations/cv3.jpg" alt="home"
+            sx={{ height: 260, mx: 'auto', my: { xs: 1, sm: 5} }}
+          />
+          <Typography variant="h4" paragraph>
+          Get Prediction Job Position with Magic Tool
           </Typography>
 
           <Typography sx={{ color: 'text.secondary' }}>
-            Sorry, we couldn’t find the page you’re looking for. Perhaps you’ve mistyped the URL? Be sure to check your
-            spelling.
+          Click "Telusuri" for Get Job Prediction
           </Typography>
 
-          <Box
-            component="img"
-            src="/assets/illustrations/illustration_404.svg"
-            sx={{ height: 260, mx: 'auto', my: { xs: 5, sm: 10 } }}
-          />
-
           <Button to="/" size="large" variant="contained" component={RouterLink}>
-            Go to Home
+           Telusuri
           </Button>
         </StyledContent>
       </Container>
