@@ -18,11 +18,11 @@ const StyledContent = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-export default function Page404() {
+export default function HomePage() {
   return (
     <>
       <Helmet>
-        <title> 404 Page Not Found | Minimal UI </title>
+        <title> Home | Classification & Suggestion Job Position </title>
       </Helmet>
 
       <Container>
@@ -31,7 +31,7 @@ export default function Page404() {
           Hi, Welcome Back
           </Typography>
           <Typography variant="h4" paragraph>
-          Get Prediction & Suggestion Job Position
+          Get Classification Resume & Suggestion Job Position
           </Typography>
           <Box
             component="img"
@@ -39,7 +39,7 @@ export default function Page404() {
             sx={{ height: 260, mx: 'auto', my: { xs: 1, sm: 5} }}
           />
           <Button to="/prediction" size="large" variant="contained" component={RouterLink}>
-          Prediction Position
+          Classification Resume
           </Button>
           <Divider sx={{ my: 3 }}>
               <Typography variant="body2" sx={{ color: 'text.secondary' }}>
@@ -47,7 +47,7 @@ export default function Page404() {
               </Typography>
             </Divider>
           <Button to="/suggestion" size="large" variant="contained" component={RouterLink}>
-          Suggestion Position
+          Suggestions Job Position
           </Button>
         </StyledContent>
       </Container>

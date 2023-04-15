@@ -102,7 +102,7 @@ export default function PredictionPage() {
     </div> */}
 
       <Helmet>
-        <title> Home | Resume Classification </title>
+        <title> Home | Classification Resume </title>
       </Helmet>
 
       <StyledRoot>
@@ -126,10 +126,10 @@ export default function PredictionPage() {
         <Container maxWidth="md">
           <StyledContent>
             <Typography variant="h3" gutterBottom>
-            Get Prediction Job Position with Magic Tool
+            Get Classification Resume with Magic Tool
             </Typography>
             <Typography variant="body2" sx={{ mb: 6 }}>
-              Click "Telusuri" to choose a files and click "Submit" for Get Prediction Job Position {''}
+              Click "Telusuri" to choose a files and click "Submit" for Get Classification Resume {''}
               {/* <Link variant="subtitle2">   Get started</Link> */}
             </Typography>
             {/* <Button onClick={handleUploadFile} variant="contained" size="large" component="label"> */}
@@ -169,7 +169,7 @@ export default function PredictionPage() {
           {users.length > 0 ? (
                 <TableContainer sx={{ marginTop: 4 }}>
                      <Typography align="center" variant="h6" sx={{ mb: 5 }}>
-                     Result Prediction Job Position {''}
+                     Classification Resume Result {''}
                     </Typography>
                   <Table>
                     <TableHead>

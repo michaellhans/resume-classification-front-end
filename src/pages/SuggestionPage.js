@@ -102,7 +102,7 @@ export default function SuggestionPage() {
     </div> */}
 
       <Helmet>
-        <title> Home | Suggestion </title>
+        <title> Home | Suggestion Job Position </title>
       </Helmet>
 
       <StyledRoot>
@@ -169,7 +169,7 @@ export default function SuggestionPage() {
           {users.length > 0 ? (
                 <TableContainer sx={{ marginTop: 4 }}>
                      <Typography align="center" variant="h6" sx={{ mb: 5 }}>
-                     Result Top 5 Suggestion Job Position {''}
+                     Top 5 Suggestions Job Position Result {''}
                     </Typography>
                   <Table>
                     <TableHead>
