@@ -9,8 +9,10 @@ import LoginPage from './pages/LoginPage';
 import Page404 from './pages/Page404';
 import ProductsPage from './pages/ProductsPage';
 import DashboardAppPage from './pages/DashboardAppPage';
-import HomePage from './pages/HomePage';
 import ResultPage from './pages/ResultPage';
+import SuggestionPage from './pages/SuggestionPage';
+import PredictionPage from './pages/PredictionPage';
+import HomePage from './pages/HomePage';
 
 // ----------------------------------------------------------------------
 
@@ -32,8 +34,16 @@ export default function Router() {
       element: <LoginPage />,
     },
     {
+      path: 'prediction',
+      element: <PredictionPage />,
+    },
+    {
       path: 'home',
       element: <HomePage />,
+    },
+    {
+      path: 'suggestion',
+      element: <SuggestionPage />,
     },
     {
       path: 'result',

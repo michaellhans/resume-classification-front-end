@@ -2,12 +2,12 @@ import { Helmet } from 'react-helmet-async';
 import { Link as RouterLink } from 'react-router-dom';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Button, Typography, Container, Box } from '@mui/material';
+import { Button, Typography, Container, Box, Divider } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
 const StyledContent = styled('div')(({ theme }) => ({
-  maxWidth: 480,
+  maxWidth: 800,
   margin: 'auto',
   minHeight: '100vh',
   display: 'flex',
@@ -30,21 +30,24 @@ export default function Page404() {
           <Typography variant="h3" paragraph>
           Hi, Welcome Back
           </Typography>
+          <Typography variant="h4" paragraph>
+          Get Prediction & Suggestion Job Position
+          </Typography>
           <Box
             component="img"
-            src="/assets/illustrations/cv3.jpg" alt="home"
+            src="/assets/illustrations/home.jpg" alt="home"
             sx={{ height: 260, mx: 'auto', my: { xs: 1, sm: 5} }}
           />
-          <Typography variant="h4" paragraph>
-          Get Prediction Job Position with Magic Tool
-          </Typography>
-
-          <Typography sx={{ color: 'text.secondary' }}>
-          Click "Telusuri" for Get Job Prediction
-          </Typography>
-
-          <Button to="/" size="large" variant="contained" component={RouterLink}>
-           Telusuri
+          <Button to="/prediction" size="large" variant="contained" component={RouterLink}>
+          Prediction Position
+          </Button>
+          <Divider sx={{ my: 3 }}>
+              <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                OR
+              </Typography>
+            </Divider>
+          <Button to="/suggestion" size="large" variant="contained" component={RouterLink}>
+          Suggestion Position
           </Button>
         </StyledContent>
       </Container>
