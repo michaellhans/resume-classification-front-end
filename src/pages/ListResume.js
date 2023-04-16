@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { Link as RouterLink } from 'react-router-dom';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Link, Container, Typography, Divider, Stack, Button, Table, TableContainer, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
+import { Avatar, Container, Typography, Divider, Stack, Button, Table, TableContainer, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
 // hooks
 import useResponsive from '../hooks/useResponsive';
 // components
@@ -40,67 +40,27 @@ const StyledContent = styled('div')(({ theme }) => ({
 
 export default function ListResume() {
   const [users, setUsers] = useState([]);
-  const [selectedFiles, setSelectedFiles] = useState([]);
   const mdUp = useResponsive('up', 'md');
+  const avatarUrl = '/assets/images/avatars/';
 
-  const handleUploadFile = async () => {
-    try {
-      const formData = new FormData();
-      selectedFiles.forEach((file, i) => {
-        formData.append(`file`, file, file.name);
-      });
-  
+  const getAllResumes = async () => {
+    try {  
       /* eslint-disable */
-      const response = await fetch(url + "/predict", {
-        method: "POST",
-        headers: new Headers({
-          "ngrok-skip-browser-warning": "69420",
-        }),
-        body: formData
-      });
-  
-      if (!response.ok) {
-        throw new Error("Failed to upload file");
-      }
-      else {
-        // Process response from server if needed
-        const { data } = await response.json();
-        setUsers(data);
-        console.log(`File uploaded successfully!`);
-      }
+      const response = await fetch(url);
+      const { data } = await response.json();
+      setUsers(data);
+
     } catch (error) {
       console.error(error);
     }
   }
 
-  const handleFileChange = (event) => {
-    const newFiles = []
-    for(let i = 0; i < event.target.files.length; i++){
-       newFiles.push(event.target.files[i])
-    }
-    setSelectedFiles(newFiles);
-  }
+  useEffect(() => {
+    getAllResumes();
+  }, [])
 
   return (
     <>
-      {/* <div>
-      <div>
-        <input type="file" multiple accept='application/pdf' onChange={handleFileChange} />
-        <button onClick={handleUploadFile}>Upload</button>
-      </div>
-      {users.length > 0 ? (
-        <ul>
-          {users.map(user => (
-            <li key={user.id}>
-              ID: {user.id}, Role: {user.role}
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <div>Loading...</div>
-      )}
-    </div> */}
-
       <Helmet>
         <title>List Resume </title>
       </Helmet>
@@ -116,9 +76,6 @@ export default function ListResume() {
 
         {mdUp && (
           <StyledSection>
-            {/* <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
-              Hi, Welcome Back
-            </Typography> */}
             <img src="/assets/illustrations/cv3.jpg" alt="home" />
           </StyledSection>
         )}
@@ -126,63 +83,40 @@ export default function ListResume() {
         <Container maxWidth="md">
           <StyledContent>
             <Typography variant="h3" gutterBottom>
-            List Resume
-            </Typography>
-            {/* <Button onClick={handleUploadFile} variant="contained" size="large" component="label"> */}
-            {/* Upload */}
-            {/* <input hidden accept="file/*" multiple type="file"/> */}
-          {/* </Button> */}
-          {/* <Divider sx={{ my: 3 }}>
-              <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                OR
+              List Resume
               </Typography>
-            </Divider>
-            <Stack direction="row" spacing={2}>
-              
-              <Button to="https://drive.google.com" fullWidth size="large" color="inherit" variant="outlined" component={RouterLink}>
-                <Iconify icon="logos:google-drive" color="#1FA463" width={22} height={22} />
-              </Button>
-              
-
-              <Button to="https://www.dropbox.com" fullWidth size="large" color="inherit" variant="outlined" component={RouterLink}>
-                <Iconify icon="logos:dropbox" color="#0060ff" width={22} height={22} />
-              </Button>
-
-              <Button Button to="https://onedrive.live.com" fullWidth size="large" color="inherit" variant="outlined" component={RouterLink}>
-                <Iconify icon="logos:microsoft-onedrive" color="#1C9CEA" width={22} height={22} />
-              </Button>
-            </Stack> */}
             <div>
-            <Button variant="contained" size="sm" component="label" color="primary">
-            Update List
-          </Button>
           {users.length > 0 ? (
                 <TableContainer sx={{ marginTop: 4 }}>
-                     <Typography align="center" variant="h6" sx={{ mb: 5 }}>
-                     Classification Resume Result {''}
-                    </Typography>
                   <Table>
                     <TableHead>
                       <TableRow>
                         <TableCell>ID</TableCell>
                         <TableCell>Name</TableCell>
-                        <TableCell>Resume</TableCell>
                         <TableCell>Predicted Role</TableCell>
                         <TableCell>Time uploaded</TableCell>
+                        <TableCell>Resume</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
                       {users.map(user => (
-                        <TableRow key={user.id}>
-                          <TableCell>{user.id}</TableCell>
-                          <TableCell>{user.name}</TableCell>
+                        <TableRow key={user.id+1}>
+                          <TableCell>{user.id+1}</TableCell>
                           <TableCell>
-                          <Button to={"https://resume-classification.herokuapp.com/show/" + user.path} variant="contained" size="sm" color="primary"  component={RouterLink}>
-                          Open
-                          </Button>
+                            <Stack direction="row" alignItems="center" spacing={2}>
+                              <Avatar alt={user.name} src={avatarUrl + `avatar_${user.id % 24 + 1}.jpg`} />
+                              <Typography variant="subtitle2" noWrap>
+                                {user.name}
+                              </Typography>
+                            </Stack>
                           </TableCell>
                           <TableCell>{user.predicted_role}</TableCell>
                           <TableCell>{user.timestamp}</TableCell>
+                          <TableCell>
+                            <Button to={"https://resume-classification.herokuapp.com/show/" + user.path} variant="contained" size="sm" color="primary"  component={RouterLink}>
+                              <Iconify icon={'eva:file-text-outline'} sx={{ width: 16, height: 16, mr: 0.5 }} />
+                            </Button>
+                          </TableCell>
                         </TableRow>
                       ))}
                     </TableBody>
@@ -193,17 +127,6 @@ export default function ListResume() {
                   No data available
                 </Typography>
               )}
-             {/* {users.length > 0 ? (
-                <ul>
-                  {users.map(user => (
-                    <li key={user.id}>
-                      ID: {user.id}, Role: {user.role}
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <div> </div>
-              )}           */}
             </div>
           </StyledContent>
         </Container>

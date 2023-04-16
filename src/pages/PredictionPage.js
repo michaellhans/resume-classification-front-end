@@ -132,11 +132,10 @@ export default function PredictionPage() {
               Click "Telusuri" to choose a files and click "Submit" for Get Classification Resume {''}
               {/* <Link variant="subtitle2">   Get started</Link> */}
             </Typography>
-            {/* <Button onClick={handleUploadFile} variant="contained" size="large" component="label"> */}
-            {/* Upload */}
-            {/* <input hidden accept="file/*" multiple type="file"/> */}
-            <input type="file" multiple accept='application/pdf' onChange={handleFileChange} />
-          {/* </Button> */}
+            <Button onClick={handleUploadFile} variant="contained" size="large" component="label">
+            Upload
+              <input hidden accept='application/pdf' type="file" multiple  onChange={handleFileChange} />
+            </Button>
           {/* <Divider sx={{ my: 3 }}>
               <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                 OR
