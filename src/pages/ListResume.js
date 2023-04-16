@@ -18,7 +18,7 @@ const StyledRoot = styled('div')(({ theme }) => ({
   },
 }));
 
-const StyledSection = styled('div')(({ theme }) => ({
+const StyledSection = styled('div')(() => ({
   width: '100%',
   marginTop: '5%',
   maxWidth: 270,
@@ -26,7 +26,7 @@ const StyledSection = styled('div')(({ theme }) => ({
   flexDirection: 'column',
 }));
 
-const StyledLoading = styled('div')(({ theme }) => ({
+const StyledLoading = styled('div')(() => ({
   width: '100%',
   marginTop: '20%',
   display: 'flex',

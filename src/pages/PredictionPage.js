@@ -17,7 +17,7 @@ const StyledRoot = styled('div')(({ theme }) => ({
   },
 }));
 
-const StyledSection = styled('div')(({ theme }) => ({
+const StyledSection = styled('div')(() => ({
   width: '100%',
   marginTop: '5%',
   maxWidth: 270,
