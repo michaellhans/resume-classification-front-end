@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { Link as RouterLink } from 'react-router-dom';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Avatar, Container, Typography, Divider, Button, Table, TableContainer, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
+import { Avatar, Container, Typography, Divider, Button, Stack, Table, TableContainer, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
 // hooks
 import useResponsive from '../hooks/useResponsive';
 // components
@@ -19,22 +19,19 @@ const StyledRoot = styled('div')(({ theme }) => ({
 
 const StyledSection = styled('div')(({ theme }) => ({
   width: '100%',
+  marginTop: '5%',
   maxWidth: 270,
   display: 'flex',
   flexDirection: 'column',
-  justifyContent: 'center',
-  boxShadow: theme.customShadows.card,
-  backgroundColor: theme.palette.background.default,
 }));
 
 const StyledContent = styled('div')(({ theme }) => ({
   maxWidth: 1000,
   margin: 'auto',
-  // minHeight: '100vh',
   display: 'flex',
   justifyContent: 'center',
   flexDirection: 'column',
-  padding: theme.spacing(12, 0),
+  padding: theme.spacing(2, 0),
 }));
 
 export default function PredictionPage() {
@@ -83,24 +80,6 @@ export default function PredictionPage() {
 
   return (
     <>
-      {/* <div>
-      <div>
-        <input type="file" multiple accept='application/pdf' onChange={handleFileChange} />
-        <button onClick={handleUploadFile}>Upload</button>
-      </div>
-      {users.length > 0 ? (
-        <ul>
-          {users.map(user => (
-            <li key={user.id}>
-              ID: {user.id}, Role: {user.role}
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <div>Loading...</div>
-      )}
-    </div> */}
-
       <Helmet>
         <title>Classification Resume </title>
       </Helmet>
@@ -128,8 +107,8 @@ export default function PredictionPage() {
             <Typography variant="h3" gutterBottom>
             Get Classification Resume with Magic Tool
             </Typography>
-            <Typography variant="body2" sx={{ mb: 6 }}>
-              Click "Telusuri" to choose a files and click "Submit" for Get Classification Resume {''}
+            <Typography variant="body2" sx={{ mb: 3 }}>
+              Click "Upload" to choose a files and click "Submit" for Get Classification Resume {''}
             </Typography>
             <Button variant="contained" size="large" component="label" color="warning">
               Upload
@@ -188,17 +167,6 @@ export default function PredictionPage() {
                   No data available
                 </Typography>
               )}
-             {/* {users.length > 0 ? (
-                <ul>
-                  {users.map(user => (
-                    <li key={user.id}>
-                      ID: {user.id}, Role: {user.role}
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <div> </div>
-              )}           */}
             </div>
           </StyledContent>
         </Container>

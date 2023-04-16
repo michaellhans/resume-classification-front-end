@@ -20,22 +20,19 @@ const StyledRoot = styled('div')(({ theme }) => ({
 
 const StyledSection = styled('div')(({ theme }) => ({
   width: '100%',
+  marginTop: '5%',
   maxWidth: 270,
   display: 'flex',
   flexDirection: 'column',
-  justifyContent: 'center',
-  boxShadow: theme.customShadows.card,
-  backgroundColor: theme.palette.background.default,
 }));
 
 const StyledContent = styled('div')(({ theme }) => ({
   maxWidth: 1000,
   margin: 'auto',
-  // minHeight: '-50vh',
   display: 'flex',
   justifyContent: 'center',
   flexDirection: 'column',
-  padding: theme.spacing(12, 0),
+  padding: theme.spacing(2, 0),
 }));
 
 export default function SuggestionPage() {
@@ -58,11 +55,12 @@ export default function SuggestionPage() {
         method: "POST",
         body: formData
       });
-  
-      // Process response from server if needed
-      const { data } = await response.json();
-      console.log(data)
-      setUsers(data);
+
+      if (response.status == 200){
+        // Process response from server if needed
+        const { data } = await response.json();
+        setUsers(data);
+      }
 
     } catch (error) {
       console.error(error);
@@ -87,9 +85,6 @@ export default function SuggestionPage() {
 
         {mdUp && (
           <StyledSection>
-            {/* <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
-              Hi, Welcome Back
-            </Typography> */}
             <img src="/assets/illustrations/suggestion.jpg" alt="home" />
           </StyledSection>
         )}
@@ -99,21 +94,21 @@ export default function SuggestionPage() {
             <Typography variant="h3" gutterBottom>
             Get Suggestion Job Position with Magic Tool
             </Typography>
-            <Typography variant="body2" sx={{ mb: 6 }}>
-               Write a job description that you want to match with existing candidates, this system will do it for you
+            <Typography variant="body2" sx={{ mb: 3 }}>
+               Write a job description that you want to match with existing candidates, the system will do it for you
             </Typography>
             <TextField
               placeholder="Write your job description here..."
               multiline
+              onChange={handleJobDescriptionChange}
               minRows={5}
               maxRows={10}
-              onChange={handleJobDescriptionChange}
+              sx={{mb: 3}}
             />
           
             <Button onClick={handleUploadFile} variant="contained" size="large" component="label" color="primary">
               Submit
             </Button>
-            <Divider sx={{ my: 3 }}></Divider>
             <div>
               {users.length > 0 ? (
                   <TableContainer sx={{ marginTop: 4 }}>

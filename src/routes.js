@@ -34,28 +34,12 @@ export default function Router() {
       ],
     },
     {
-      path: 'login',
-      element: <LoginPage />,
-    },
-    {
-      path: 'prediction',
-      element: <PredictionPage />,
-    },
-    {
       path: 'home',
       element: <HomePage />,
     },
     {
-      path: 'suggestion',
-      element: <SuggestionPage />,
-    },
-    {
       path: 'result',
       element: <ResultPage />,
-    },
-    {
-      path: 'list-resume',
-      element: <ListResume />,
     },
     {
       element: <SimpleLayout />,
