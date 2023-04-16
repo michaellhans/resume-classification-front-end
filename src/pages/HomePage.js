@@ -38,7 +38,7 @@ export default function HomePage() {
             src="/assets/illustrations/home.jpg" alt="home"
             sx={{ height: 260, mx: 'auto', my: { xs: 1, sm: 5} }}
           />
-          <Button to="/prediction" size="large" variant="contained" component={RouterLink}>
+          <Button to="/dashboard/prediction" size="large" variant="contained" component={RouterLink}>
           Classification Resume
           </Button>
           <Divider sx={{ my: 3 }}>
@@ -46,7 +46,7 @@ export default function HomePage() {
                 OR
               </Typography>
             </Divider>
-          <Button to="/suggestion" size="large" variant="contained" component={RouterLink}>
+          <Button to="/dashboard/suggestion" size="large" variant="contained" component={RouterLink}>
           Suggestions Job Position
           </Button>
         </StyledContent>

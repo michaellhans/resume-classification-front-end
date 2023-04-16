@@ -10,7 +10,7 @@ import useResponsive from '../hooks/useResponsive';
 import Logo from '../components/logo';
 import Iconify from '../components/iconify';
 
-const url = "https://resume-classification.herokuapp.com";
+const url = "https://resume-classification.herokuapp.com/show-all";
 
 const StyledRoot = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('md')]: {
@@ -31,14 +31,14 @@ const StyledSection = styled('div')(({ theme }) => ({
 const StyledContent = styled('div')(({ theme }) => ({
   maxWidth: 1000,
   margin: 'auto',
-  // minHeight: '-50vh',
+  // minHeight: '100vh',
   display: 'flex',
   justifyContent: 'center',
   flexDirection: 'column',
   padding: theme.spacing(12, 0),
 }));
 
-export default function SuggestionPage() {
+export default function ListResume() {
   const [users, setUsers] = useState([]);
   const [selectedFiles, setSelectedFiles] = useState([]);
   const mdUp = useResponsive('up', 'md');
@@ -51,7 +51,7 @@ export default function SuggestionPage() {
       });
   
       /* eslint-disable */
-      const response = await fetch(url + "/suggestions", {
+      const response = await fetch(url + "/predict", {
         method: "POST",
         headers: new Headers({
           "ngrok-skip-browser-warning": "69420",
@@ -102,7 +102,7 @@ export default function SuggestionPage() {
     </div> */}
 
       <Helmet>
-        <title>Suggestion Job Position </title>
+        <title>List Resume </title>
       </Helmet>
 
       <StyledRoot>
@@ -119,24 +119,18 @@ export default function SuggestionPage() {
             {/* <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
               Hi, Welcome Back
             </Typography> */}
-            <img src="/assets/illustrations/suggestion.jpg" alt="home" />
+            <img src="/assets/illustrations/cv3.jpg" alt="home" />
           </StyledSection>
         )}
 
         <Container maxWidth="md">
           <StyledContent>
             <Typography variant="h3" gutterBottom>
-            Get Suggestion Job Position with Magic Tool
-            </Typography>
-            <Typography variant="body2" sx={{ mb: 6 }}>
-              Click "Telusuri" to choose a files and click "Submit" for Get Suggestion Job Position {''}
-              {/* <Link variant="subtitle2">   Get started</Link> */}
+            List Resume
             </Typography>
             {/* <Button onClick={handleUploadFile} variant="contained" size="large" component="label"> */}
             {/* Upload */}
             {/* <input hidden accept="file/*" multiple type="file"/> */}
-            
-            <input type="text" multiple accept='application/pdf' onChange={handleFileChange} />
           {/* </Button> */}
           {/* <Divider sx={{ my: 3 }}>
               <Typography variant="body2" sx={{ color: 'text.secondary' }}>
@@ -158,28 +152,22 @@ export default function SuggestionPage() {
                 <Iconify icon="logos:microsoft-onedrive" color="#1C9CEA" width={22} height={22} />
               </Button>
             </Stack> */}
-            <Divider sx={{ my: 3 }}>
-              <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                SUBMIT
-              </Typography>
-            </Divider>
             <div>
-            <Button onClick={handleUploadFile} variant="contained" size="sm" component="label" color="primary">
-            Submit
+            <Button variant="contained" size="sm" component="label" color="primary">
+            Update List
           </Button>
           {users.length > 0 ? (
                 <TableContainer sx={{ marginTop: 4 }}>
                      <Typography align="center" variant="h6" sx={{ mb: 5 }}>
-                     Top 5 Suggestions Job Position Result {''}
+                     Classification Resume Result {''}
                     </Typography>
                   <Table>
                     <TableHead>
-                    <TableRow>
+                      <TableRow>
                         <TableCell>ID</TableCell>
                         <TableCell>Name</TableCell>
                         <TableCell>Resume</TableCell>
                         <TableCell>Predicted Role</TableCell>
-                        <TableCell>Score</TableCell>
                         <TableCell>Time uploaded</TableCell>
                       </TableRow>
                     </TableHead>
@@ -194,7 +182,6 @@ export default function SuggestionPage() {
                           </Button>
                           </TableCell>
                           <TableCell>{user.predicted_role}</TableCell>
-                          <TableCell>{user.scores}</TableCell>
                           <TableCell>{user.timestamp}</TableCell>
                         </TableRow>
                       ))}

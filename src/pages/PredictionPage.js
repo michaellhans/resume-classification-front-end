@@ -20,7 +20,7 @@ const StyledRoot = styled('div')(({ theme }) => ({
 
 const StyledSection = styled('div')(({ theme }) => ({
   width: '100%',
-  maxWidth: 480,
+  maxWidth: 270,
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
@@ -29,9 +29,9 @@ const StyledSection = styled('div')(({ theme }) => ({
 }));
 
 const StyledContent = styled('div')(({ theme }) => ({
-  maxWidth: 800,
+  maxWidth: 1000,
   margin: 'auto',
-  minHeight: '100vh',
+  // minHeight: '100vh',
   display: 'flex',
   justifyContent: 'center',
   flexDirection: 'column',
@@ -102,7 +102,7 @@ export default function PredictionPage() {
     </div> */}
 
       <Helmet>
-        <title> Home | Classification Resume </title>
+        <title>Classification Resume </title>
       </Helmet>
 
       <StyledRoot>
@@ -116,9 +116,9 @@ export default function PredictionPage() {
 
         {mdUp && (
           <StyledSection>
-            <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
+            {/* <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
               Hi, Welcome Back
-            </Typography>
+            </Typography> */}
             <img src="/assets/illustrations/cv3.jpg" alt="home" />
           </StyledSection>
         )}
@@ -174,15 +174,25 @@ export default function PredictionPage() {
                   <Table>
                     <TableHead>
                       <TableRow>
+                        <TableCell>ID</TableCell>
                         <TableCell>Name</TableCell>
-                        <TableCell>Role</TableCell>
+                        <TableCell>Resume</TableCell>
+                        <TableCell>Predicted Role</TableCell>
+                        <TableCell>Time uploaded</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
                       {users.map(user => (
-                        <TableRow key={user.name}>
+                        <TableRow key={user.id}>
+                          <TableCell>{user.id}</TableCell>
                           <TableCell>{user.name}</TableCell>
+                          <TableCell>
+                          <Button to={"https://resume-classification.herokuapp.com/show/" + user.path} variant="contained" size="sm" color="primary"  component={RouterLink}>
+                          Open
+                          </Button>
+                          </TableCell>
                           <TableCell>{user.predicted_role}</TableCell>
+                          <TableCell>{user.timestamp}</TableCell>
                         </TableRow>
                       ))}
                     </TableBody>

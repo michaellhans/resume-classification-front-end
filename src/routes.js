@@ -13,6 +13,7 @@ import ResultPage from './pages/ResultPage';
 import SuggestionPage from './pages/SuggestionPage';
 import PredictionPage from './pages/PredictionPage';
 import HomePage from './pages/HomePage';
+import ListResume from './pages/ListResume';
 
 // ----------------------------------------------------------------------
 
@@ -22,11 +23,15 @@ export default function Router() {
       path: '/dashboard',
       element: <DashboardLayout />,
       children: [
-        { element: <Navigate to="/home" />, index: true },
+        { element: <Navigate to="/dashboard" />, index: true },
         { path: 'app', element: <DashboardAppPage /> },
         { path: 'user', element: <UserPage /> },
         { path: 'products', element: <ProductsPage /> },
         { path: 'blog', element: <BlogPage /> },
+        { path: 'prediction', element: <PredictionPage /> },
+        { path: 'suggestion', element: <SuggestionPage /> },
+        { path: 'home', element: <HomePage /> },
+        { path: 'list-resume', element: <ListResume /> },
       ],
     },
     {
@@ -48,6 +53,10 @@ export default function Router() {
     {
       path: 'result',
       element: <ResultPage />,
+    },
+    {
+      path: 'list-resume',
+      element: <ListResume />,
     },
     {
       element: <SimpleLayout />,
