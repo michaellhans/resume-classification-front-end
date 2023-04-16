@@ -76,7 +76,7 @@ export default function ListResume() {
 
         {mdUp && (
           <StyledSection>
-            <img src="/assets/illustrations/cv3.jpg" alt="home" />
+            <img src="/assets/illustrations/cv2.png" alt="home" />
           </StyledSection>
         )}
 

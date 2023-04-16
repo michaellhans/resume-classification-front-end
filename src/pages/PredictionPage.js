@@ -129,7 +129,7 @@ export default function PredictionPage() {
             Get Classification Resume with Magic Tool
             </Typography>
             <Typography variant="body2" sx={{ mb: 6 }}>
-              Click "Telusuri" to choose a files and click "Submit" for Get Classification Resume {''}
+              Click "Upload" to choose a files and click "Submit" for Get Classification Resume {''}
             </Typography>
             <Button variant="contained" size="large" component="label" color="warning">
               Upload
