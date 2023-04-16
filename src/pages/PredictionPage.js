@@ -180,9 +180,9 @@ export default function PredictionPage() {
                     </TableHead>
                     <TableBody>
                       {users.map(user => (
-                        <TableRow key={user.id}>
-                          <TableCell>{user.id}</TableCell>
-                          <TableCell>{user.role}</TableCell>
+                        <TableRow key={user.name}>
+                          <TableCell>{user.name}</TableCell>
+                          <TableCell>{user.predicted_role}</TableCell>
                         </TableRow>
                       ))}
                     </TableBody>
