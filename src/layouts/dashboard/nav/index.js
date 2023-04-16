@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom';
 import { styled, alpha } from '@mui/material/styles';
 import { Box, Link, Drawer, Typography, Avatar, } from '@mui/material';
 // mock
-import account from '../../../_mock/account';
+import { account } from '../header/AccountPopover';
 // hooks
 import useResponsive from '../../../hooks/useResponsive';
 // components

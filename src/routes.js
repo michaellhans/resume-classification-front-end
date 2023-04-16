@@ -3,12 +3,7 @@ import { Navigate, useRoutes } from 'react-router-dom';
 import DashboardLayout from './layouts/dashboard';
 import SimpleLayout from './layouts/simple';
 //
-import BlogPage from './pages/BlogPage';
-import UserPage from './pages/UserPage';
 import Page404 from './pages/Page404';
-import ProductsPage from './pages/ProductsPage';
-import DashboardAppPage from './pages/DashboardAppPage';
-import ResultPage from './pages/ResultPage';
 import SuggestionPage from './pages/SuggestionPage';
 import PredictionPage from './pages/PredictionPage';
 import HomePage from './pages/HomePage';
@@ -23,10 +18,6 @@ export default function Router() {
       element: <DashboardLayout />,
       children: [
         { element: <Navigate to="/dashboard" />, index: true },
-        { path: 'app', element: <DashboardAppPage /> },
-        { path: 'user', element: <UserPage /> },
-        { path: 'products', element: <ProductsPage /> },
-        { path: 'blog', element: <BlogPage /> },
         { path: 'prediction', element: <PredictionPage /> },
         { path: 'suggestion', element: <SuggestionPage /> },
         { path: 'list-resume', element: <ListResume /> },
@@ -35,10 +26,6 @@ export default function Router() {
     {
       path: 'home',
       element: <HomePage />,
-    },
-    {
-      path: 'result',
-      element: <ResultPage />,
     },
     {
       element: <SimpleLayout />,
