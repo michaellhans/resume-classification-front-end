@@ -1,7 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import { Link as RouterLink } from 'react-router-dom';
 import { filter } from 'lodash';
-// import { sentenceCase } from 'change-case';
 import React, { useEffect, useState } from "react";
 // @mui
 import {
@@ -72,7 +71,7 @@ function applySortFilter(array, comparator, query) {
 }
 
 export default function ResultPage() {
-  const [users, setUsers] = useState([]);
+  const [users] = useState([]);
   const [open, setOpen] = useState(null);
 
   const [page, setPage] = useState(0);

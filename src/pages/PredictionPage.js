@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Helmet } from 'react-helmet-async';
 import { Link as RouterLink } from 'react-router-dom';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Link, Container, Typography, Divider, Stack, Button, Table, TableContainer, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
+import { Avatar, Container, Typography, Divider, Button, Table, TableContainer, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
 // hooks
 import useResponsive from '../hooks/useResponsive';
 // components
 import Logo from '../components/logo';
-import Iconify from '../components/iconify';
 
 const url = "https://resume-classification.herokuapp.com";
 
@@ -42,11 +41,12 @@ export default function PredictionPage() {
   const [users, setUsers] = useState([]);
   const [selectedFiles, setSelectedFiles] = useState([]);
   const mdUp = useResponsive('up', 'md');
+  const avatarUrl = '/assets/images/avatars/';
 
   const handleUploadFile = async () => {
     try {
       const formData = new FormData();
-      selectedFiles.forEach((file, i) => {
+      selectedFiles.forEach((file) => {
         formData.append(`file`, file, file.name);
       });
   
@@ -130,41 +130,20 @@ export default function PredictionPage() {
             </Typography>
             <Typography variant="body2" sx={{ mb: 6 }}>
               Click "Telusuri" to choose a files and click "Submit" for Get Classification Resume {''}
-              {/* <Link variant="subtitle2">   Get started</Link> */}
             </Typography>
-            <Button onClick={handleUploadFile} variant="contained" size="large" component="label">
-            Upload
+            <Button variant="contained" size="large" component="label" color="warning">
+              Upload
               <input hidden accept='application/pdf' type="file" multiple  onChange={handleFileChange} />
             </Button>
-          {/* <Divider sx={{ my: 3 }}>
-              <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                OR
-              </Typography>
-            </Divider>
-            <Stack direction="row" spacing={2}>
-              
-              <Button to="https://drive.google.com" fullWidth size="large" color="inherit" variant="outlined" component={RouterLink}>
-                <Iconify icon="logos:google-drive" color="#1FA463" width={22} height={22} />
-              </Button>
-              
-
-              <Button to="https://www.dropbox.com" fullWidth size="large" color="inherit" variant="outlined" component={RouterLink}>
-                <Iconify icon="logos:dropbox" color="#0060ff" width={22} height={22} />
-              </Button>
-
-              <Button Button to="https://onedrive.live.com" fullWidth size="large" color="inherit" variant="outlined" component={RouterLink}>
-                <Iconify icon="logos:microsoft-onedrive" color="#1C9CEA" width={22} height={22} />
-              </Button>
-            </Stack> */}
             <Divider sx={{ my: 3 }}>
               <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                 SUBMIT
               </Typography>
             </Divider>
+            <Button onClick={handleUploadFile} variant="contained" size="large" component="label" color="primary">
+              Submit
+            </Button>
             <div>
-            <Button onClick={handleUploadFile} variant="contained" size="sm" component="label" color="primary">
-            Submit
-          </Button>
           {users.length > 0 ? (
                 <TableContainer sx={{ marginTop: 4 }}>
                      <Typography align="center" variant="h6" sx={{ mb: 5 }}>
@@ -184,7 +163,14 @@ export default function PredictionPage() {
                       {users.map(user => (
                         <TableRow key={user.id}>
                           <TableCell>{user.id}</TableCell>
-                          <TableCell>{user.name}</TableCell>
+                          <TableCell>
+                            <Stack direction="row" alignItems="center" spacing={2}>
+                              <Avatar alt={user.name} src={avatarUrl + `avatar_${user.id % 24 + 1}.jpg`} />
+                              <Typography variant="subtitle2" noWrap>
+                                {user.name}
+                              </Typography>
+                            </Stack>
+                          </TableCell>
                           <TableCell>
                           <Button to={"https://resume-classification.herokuapp.com/show/" + user.path} variant="contained" size="sm" color="primary"  component={RouterLink}>
                           Open

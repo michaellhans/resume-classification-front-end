@@ -30,7 +30,6 @@ export default function Router() {
         { path: 'blog', element: <BlogPage /> },
         { path: 'prediction', element: <PredictionPage /> },
         { path: 'suggestion', element: <SuggestionPage /> },
-        { path: 'home', element: <HomePage /> },
         { path: 'list-resume', element: <ListResume /> },
       ],
     },

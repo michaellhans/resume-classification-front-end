@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Helmet } from 'react-helmet-async';
 import { Link as RouterLink } from 'react-router-dom';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Link, Container, Typography, Divider, Stack, Button, Table, TableContainer, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
+import { Container, Avatar, Typography, Divider, Stack, TextField, Button, Table, TableContainer, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
 // hooks
 import useResponsive from '../hooks/useResponsive';
 // components
@@ -40,67 +40,38 @@ const StyledContent = styled('div')(({ theme }) => ({
 
 export default function SuggestionPage() {
   const [users, setUsers] = useState([]);
-  const [selectedFiles, setSelectedFiles] = useState([]);
+  const [jobDescription, setJobDescription] = useState('');
   const mdUp = useResponsive('up', 'md');
+  const avatarUrl = '/assets/images/avatars/';
+
+  const handleJobDescriptionChange = (event) => {
+    setJobDescription(event.target.value);
+  }
 
   const handleUploadFile = async () => {
     try {
       const formData = new FormData();
-      selectedFiles.forEach((file, i) => {
-        formData.append(`file`, file, file.name);
-      });
+      formData.append(`job_description`, jobDescription);
   
       /* eslint-disable */
       const response = await fetch(url + "/suggestions", {
         method: "POST",
-        headers: new Headers({
-          "ngrok-skip-browser-warning": "69420",
-        }),
         body: formData
       });
   
-      if (!response.ok) {
-        throw new Error("Failed to upload file");
-      }
-      else {
-        // Process response from server if needed
-        const { data } = await response.json();
-        setUsers(data);
-        console.log(`File uploaded successfully!`);
-      }
+      // Process response from server if needed
+      const { data } = await response.json();
+      console.log(data)
+      setUsers(data);
+
     } catch (error) {
       console.error(error);
     }
   }
 
-  const handleFileChange = (event) => {
-    const newFiles = []
-    for(let i = 0; i < event.target.files.length; i++){
-       newFiles.push(event.target.files[i])
-    }
-    setSelectedFiles(newFiles);
-  }
 
   return (
     <>
-      {/* <div>
-      <div>
-        <input type="file" multiple accept='application/pdf' onChange={handleFileChange} />
-        <button onClick={handleUploadFile}>Upload</button>
-      </div>
-      {users.length > 0 ? (
-        <ul>
-          {users.map(user => (
-            <li key={user.id}>
-              ID: {user.id}, Role: {user.role}
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <div>Loading...</div>
-      )}
-    </div> */}
-
       <Helmet>
         <title>Suggestion Job Position </title>
       </Helmet>
@@ -129,94 +100,67 @@ export default function SuggestionPage() {
             Get Suggestion Job Position with Magic Tool
             </Typography>
             <Typography variant="body2" sx={{ mb: 6 }}>
-              Click "Telusuri" to choose a files and click "Submit" for Get Suggestion Job Position {''}
-              {/* <Link variant="subtitle2">   Get started</Link> */}
+               Write a job description that you want to match with existing candidates, this system will do it for you
             </Typography>
-            {/* <Button onClick={handleUploadFile} variant="contained" size="large" component="label"> */}
-            {/* Upload */}
-            {/* <input hidden accept="file/*" multiple type="file"/> */}
-            
-            <input type="text" multiple accept='application/pdf' onChange={handleFileChange} />
-          {/* </Button> */}
-          {/* <Divider sx={{ my: 3 }}>
-              <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                OR
-              </Typography>
-            </Divider>
-            <Stack direction="row" spacing={2}>
-              
-              <Button to="https://drive.google.com" fullWidth size="large" color="inherit" variant="outlined" component={RouterLink}>
-                <Iconify icon="logos:google-drive" color="#1FA463" width={22} height={22} />
-              </Button>
-              
-
-              <Button to="https://www.dropbox.com" fullWidth size="large" color="inherit" variant="outlined" component={RouterLink}>
-                <Iconify icon="logos:dropbox" color="#0060ff" width={22} height={22} />
-              </Button>
-
-              <Button Button to="https://onedrive.live.com" fullWidth size="large" color="inherit" variant="outlined" component={RouterLink}>
-                <Iconify icon="logos:microsoft-onedrive" color="#1C9CEA" width={22} height={22} />
-              </Button>
-            </Stack> */}
-            <Divider sx={{ my: 3 }}>
-              <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                SUBMIT
-              </Typography>
-            </Divider>
+            <TextField
+              placeholder="Write your job description here..."
+              multiline
+              minRows={5}
+              maxRows={10}
+              onChange={handleJobDescriptionChange}
+            />
+          
+            <Button onClick={handleUploadFile} variant="contained" size="large" component="label" color="primary">
+              Submit
+            </Button>
+            <Divider sx={{ my: 3 }}></Divider>
             <div>
-            <Button onClick={handleUploadFile} variant="contained" size="sm" component="label" color="primary">
-            Submit
-          </Button>
-          {users.length > 0 ? (
-                <TableContainer sx={{ marginTop: 4 }}>
-                     <Typography align="center" variant="h6" sx={{ mb: 5 }}>
-                     Top 5 Suggestions Job Position Result {''}
-                    </Typography>
-                  <Table>
-                    <TableHead>
-                    <TableRow>
-                        <TableCell>ID</TableCell>
-                        <TableCell>Name</TableCell>
-                        <TableCell>Resume</TableCell>
-                        <TableCell>Predicted Role</TableCell>
-                        <TableCell>Score</TableCell>
-                        <TableCell>Time uploaded</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {users.map(user => (
-                        <TableRow key={user.id}>
-                          <TableCell>{user.id}</TableCell>
-                          <TableCell>{user.name}</TableCell>
-                          <TableCell>
-                          <Button to={"https://resume-classification.herokuapp.com/show/" + user.path} variant="contained" size="sm" color="primary"  component={RouterLink}>
-                          Open
-                          </Button>
-                          </TableCell>
-                          <TableCell>{user.predicted_role}</TableCell>
-                          <TableCell>{user.scores}</TableCell>
-                          <TableCell>{user.timestamp}</TableCell>
+              {users.length > 0 ? (
+                  <TableContainer sx={{ marginTop: 4 }}>
+                      <Typography align="center" variant="h6" sx={{ mb: 5 }}>
+                      Top 5 Suggestions Job Position Result {''}
+                      </Typography>
+                    <Table>
+                      <TableHead>
+                      <TableRow>
+                          <TableCell>ID</TableCell>
+                          <TableCell>Name</TableCell>
+                          <TableCell>Predicted Role</TableCell>
+                          <TableCell>Score</TableCell>
+                          <TableCell>Time uploaded</TableCell>
+                          <TableCell>Resume</TableCell>
                         </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              ) : (
-                <Typography variant="body1" align="center" color="textSecondary" mt={4}>
-                  No data available
-                </Typography>
-              )}
-             {/* {users.length > 0 ? (
-                <ul>
-                  {users.map(user => (
-                    <li key={user.id}>
-                      ID: {user.id}, Role: {user.role}
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <div> </div>
-              )}           */}
+                      </TableHead>
+                      <TableBody>
+                        {users.map(user => (
+                          <TableRow key={user.id}>
+                            <TableCell>{user.id}</TableCell>
+                            <TableCell>
+                              <Stack direction="row" alignItems="center" spacing={2}>
+                                <Avatar alt={user.name} src={avatarUrl + `avatar_${user.id % 24 + 1}.jpg`} />
+                                <Typography variant="subtitle2" noWrap>
+                                  {user.name}
+                                </Typography>
+                              </Stack>
+                            </TableCell>
+                            <TableCell>{user.predicted_role}</TableCell>
+                            <TableCell>{user.scores.toFixed(2)} %</TableCell>
+                            <TableCell>{user.timestamp}</TableCell>
+                            <TableCell>
+                              <Button to={"https://resume-classification.herokuapp.com/show/" + user.path} variant="contained" size="sm" color="primary"  component={RouterLink}>
+                                <Iconify icon={'eva:file-text-outline'} sx={{ width: 16, height: 16, mr: 0.5 }} />
+                              </Button>
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                ) : (
+                  <Typography variant="body1" align="center" color="textSecondary" mt={4}>
+                    No data available
+                  </Typography>
+                )}
             </div>
           </StyledContent>
         </Container>
