@@ -8,6 +8,8 @@ import { Avatar, Container, Typography, Divider, Button, Stack, Table, TableCont
 import useResponsive from '../hooks/useResponsive';
 // components
 import Logo from '../components/logo';
+import Iconify from '../components/iconify';
+import { fDateTime } from "../utils/formatTime";
 
 const url = "https://resume-classification.herokuapp.com";
 
@@ -133,9 +135,9 @@ export default function PredictionPage() {
                       <TableRow>
                         <TableCell>ID</TableCell>
                         <TableCell>Name</TableCell>
-                        <TableCell>Resume</TableCell>
                         <TableCell>Predicted Role</TableCell>
                         <TableCell>Time uploaded</TableCell>
+                        <TableCell>Resume</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
@@ -150,13 +152,13 @@ export default function PredictionPage() {
                               </Typography>
                             </Stack>
                           </TableCell>
-                          <TableCell>
-                          <Button to={"https://resume-classification.herokuapp.com/show/" + user.path} variant="contained" size="sm" color="primary"  component={RouterLink}>
-                          Open
-                          </Button>
-                          </TableCell>
                           <TableCell>{user.predicted_role}</TableCell>
-                          <TableCell>{user.timestamp}</TableCell>
+                          <TableCell>{fDateTime(new Date(user.timestamp))}</TableCell>
+                          <TableCell>
+                            <Button to={"https://resume-classification.herokuapp.com/show/" + user.path} variant="contained" size="sm" color="primary"  component={RouterLink}>
+                              <Iconify icon={'eva:file-text-outline'} sx={{ width: 16, height: 16 }} />
+                            </Button>
+                          </TableCell>
                         </TableRow>
                       ))}
                     </TableBody>
